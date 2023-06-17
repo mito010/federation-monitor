@@ -1,0 +1,3 @@
+[submodule "crawler/lemmy-federation-graph"]
+	path = crawler/lemmy-federation-graph
+	url = https://github.com/sacred-serpent/lemmy-federation-graph.git

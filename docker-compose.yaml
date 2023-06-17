@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  neo4j:
+    image: neo4j:5.9.0-enterprise
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - ./data:/data:rw
+      - ./conf:/conf:ro
+      - ./logs/:/logs:rw
+      - ./plugins:/plugins:ro
+    environment:
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+  crawler:
+    build: ./crawler
+    image: lemmy-stats-crawler
+    environment:
+      - verbose=4
+      - neo4j_uri=127.0.0.1:7687
+      - neo4j_user=crawler
+      - neo4j_password=crawlerking
+      - neo4j_db=fediverse
+      - start_instances=lemmy.ml,burggit.moe
+      - store_jobs=16
+    network_mode: host
+
