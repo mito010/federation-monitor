@@ -1,11 +1,9 @@
-# Create the build container to compile the hello world program
 FROM rust:buster as builder
 ENV USER root
 WORKDIR /crawler
 COPY ./lemmy-federation-graph .
 RUN cargo build --release
 
-# Create the execution container by copying the compiled hello world to it and running it
 FROM debian:buster
 ENV verbose 2
 ENV neo4j_user neo4j
